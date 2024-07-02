@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Статистика</title>
+</head>
+
+<head th:insert="blocks/head :: head"></head>
+
+<body style="background: url(&quot;/img/bg.jpg&quot;) top / cover;">
+
+<div th:insert="blocks/nav :: nav"></div>
+
+<main class="page cv-page mt-5">
+    <section class="portfolio-block cv">
+        <div class="container bg-light rounded-5 shadow p-3">
+            <div class="work-experience group">
+                <h2 class="text-center">СТАТИСТИКА</h2>
+            </div>
+            <div class="item">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="fs-4">Суммарная прибыль</h3>
+                    </div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col text-end">
+                        <span th:text="${sum}" class="fs-5">Text</span>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="item">
+                <div class="row">
+                    <div class="col text-center">
+                        <h3 class="fs-4">Название</h3>
+                    </div>
+                    <div class="col text-center">
+                        <h3 class="fs-4">Цена</h3>
+                    </div>
+                    <div class="col text-center">
+                        <h3 class="fs-4">Количество проданных</h3>
+                    </div>
+                    <div class="col text-center">
+                        <h3 class="fs-4">Прибыль</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div th:each="stat : ${stats}" class="row">
+                    <div class="col text-center"><span th:text="${stat.product.name}" class="fs-5"></span></div>
+                    <div class="col text-end"><span th:text="${stat.product.price}" class="fs-5"></span></div>
+                    <div class="col text-end"><span th:text="${stat.quantity}" class="fs-5"></span></div>
+                    <div class="col text-end"><span th:text="${stat.income}" class="fs-5"></span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+
+<div th:insert="blocks/scripts :: scripts"></div>
+
+</body>
+
+</html>

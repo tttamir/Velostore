@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Пользователи</title>
+</head>
+
+<head th:insert="blocks/head :: head"></head>
+
+<body style="background: url(&quot;/img/bg.jpg&quot;) top / cover;">
+
+<div th:insert="blocks/nav :: nav"></div>
+
+<main class="page project-page mt-3">
+    <section class="portfolio-block project">
+        <div class="container bg-light rounded-5 shadow p-3">
+            <div class="heading">
+                <h2>Пользователи</h2>
+            </div>
+            <form th:each="user : ${users}" th:if="${user != actual}" th:action="'/users/update/' + ${user.getId()}" method="post"
+                  style="max-width: 100%;padding: 0px;">
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col">
+                        <input class="form-control" type="text" name="name" th:value="${user.getUsername()}" readonly>
+                    </div>
+                    <div class="col">
+                        <select class="form-select" name="role">
+                            <option th:each="role : ${roles}" th:value="${role}" th:label="${role.name}" th:selected="${role == user.role}"></option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-primary" type="submit">Изменить</button>
+                    </div>
+                    <div class="col-auto"><a th:href="'/users/delete/' + ${user.id}" class="btn btn-danger mx-2" role="button">Удалить</a></div>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+
+
+
+<div th:insert="blocks/scripts :: scripts"></div>
+
+</body>
+
+</html>

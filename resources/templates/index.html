@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Товары</title>
+</head>
+
+<head th:insert="blocks/head :: head"></head>
+
+<body style="background: url(&quot;/img/bg.jpg&quot;) top / cover;">
+
+<div th:insert="blocks/nav :: nav"></div>
+
+<main class="page projects-page mt-3">
+    <section class="portfolio-block projects-cards">
+        <div class="container bg-light rounded-5 shadow p-3">
+            <div class="heading">
+                <h2>Товары</h2>
+                <div th:if="${message}" class="d-xl-flex justify-content-xl-center" style="margin-top: 50px;padding-bottom: 20px;">
+                    <div class="alert alert-warning text-center" role="alert" style="width: 650px;margin-bottom: 0px;">
+                        <span><strong th:text="${message}"></strong></span>
+                    </div>
+                </div>
+            </div>
+            <form method="post" action="/search" style="max-width: 100%;margin-bottom: 20px;">
+                <div class="row">
+                    <div class="col"><a href="/" class="btn btn-primary" role="button" style="width: 100%;">Все</a>
+                    </div>
+                    <div class="col">
+                        <select class="form-select" name="category">
+                            <option th:each="category : ${categories}" th:value="${category}"
+                                    th:label="${category.name}" th:selected="${category == selectedCategory}"></option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary" type="submit" style="width: 100%;">Поиск</button>
+                    </div>
+                </div>
+            </form>
+            <div class="row">
+                <div th:each="product : ${products}" class="col-3">
+                    <div class="card border-0">
+                        <a th:href="'/product/' + ${product.id}">
+                            <img class="card-img-top scale-on-hover" th:src="'/img/' + ${product.file}"
+                                 style="border-radius: 10px;">
+                        </a>
+                        <div class="card-body text-start">
+                            <h6>
+                                <a th:href="'/product/' + ${product.id}" th:text="${product.name}">Название</a>
+                            </h6>
+                            <span>Категория:&nbsp;</span><a th:text="${product.category.name}" th:href="'/search/' + ${product.category}">Категория</a>
+                            <br>
+                            <span>Цена:&nbsp;</span><span th:text="${product.price}">Цена</span>
+                            <br>
+                            <span>Количество:&nbsp;</span><span th:text="${product.quantity}">Количество</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div th:insert="blocks/scripts :: scripts"></div>
+
+</body>
+
+</html>

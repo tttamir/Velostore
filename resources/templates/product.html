@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${product.name}">Инструмент</title>
+</head>
+
+<head th:insert="blocks/head :: head"></head>
+
+<body style="background: url(&quot;/img/bg.jpg&quot;) top / cover;">
+
+<div th:insert="blocks/nav :: nav"></div>
+
+<main class="page project-page mt-3">
+    <section class="portfolio-block project">
+        <div class="container bg-light rounded-5 shadow p-3">
+            <div class="heading">
+                <h2 th:text="${product.name}">Название</h2>
+            </div>
+            <div class="row">
+                <div class="col"><img th:src="'/img/' + ${product.file}" width="100%" style="border-radius: 20px"></div>
+                <div class="col">
+                    <form th:action="'/cart/add/' + ${product.id}" method="post" th:if="${role == 'BUYER'}"
+                          style="margin-bottom: 20px;">
+                        <div class="row">
+                            <div class="col">
+                                <input style="margin-right: 20px;" class="form-control" type="number" min="1"
+                                       th:max="${product.quantity}" name="quantity">
+                            </div>
+                            <div class="col-5">
+                                <button class="btn btn-primary" type="submit">Добавить в корзину</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div th:if="${role == 'ADMIN'}" style="margin-bottom: 20px;">
+                        <div class="row">
+                            <div class="col">
+                                <a th:href="'/product/edit/' + ${product.id}" class="btn btn-primary" role="button"
+                                   style="margin-right: 20px;">Изменить</a>
+                                <a th:href="'/product/delete/' + ${product.id}" class="btn btn-danger"
+                                   role="button">Удалить</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="row">
+                            <div class="col">
+                                <span>Категория:&nbsp;</span><a th:text="${product.category.name}"
+                                                                th:href="'/search/' + ${product.category}">Категория</a>
+                                <br>
+                                <span>Цена:&nbsp;</span><span th:text="${product.price}">Цена</span>
+                                <br>
+                                <span>Количество:&nbsp;</span><span th:text="${product.quantity}">Количество</span>
+                                <br>
+                                <span>Дата изготовления:&nbsp;</span><span
+                                    th:text="${product.date}">Дата изготовления</span>
+                                <br>
+                                <span>Срок гарантии:&nbsp;</span><span th:text="${product.warranty}"></span> месяц(ев)
+                                <br>
+                                <span>Страна производства:&nbsp;</span><span
+                                    th:text="${product.country}">Страна производства</span>
+                                <br>
+                                <span>Фирма производитель:&nbsp;</span><span
+                                    th:text="${product.firm}">Фирма производитель</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--            <div class="more-projects">-->
+            <!--                <h3 class="text-center">Похожие</h3>-->
+            <!--                <div class="row gallery">-->
+            <!--                    <div class="col-md-4 col-lg-3">-->
+            <!--                        <div class="item"><a href="#"><img class="img-fluid scale-on-hover"-->
+            <!--                                                           src="assets/img/nature/image2.jpg"></a></div>-->
+            <!--                        <span>Name</span>-->
+            <!--                    </div>-->
+            <!--                    <div class="col-md-4 col-lg-3">-->
+            <!--                        <div class="item"><a href="#"><img class="img-fluid scale-on-hover"-->
+            <!--                                                           src="assets/img/nature/image3.jpg"></a></div>-->
+            <!--                        <span>Name</span>-->
+            <!--                    </div>-->
+            <!--                    <div class="col-md-4 col-lg-3">-->
+            <!--                        <div class="item"><a href="#"><img class="img-fluid scale-on-hover"-->
+            <!--                                                           src="assets/img/tech/image4.jpg"></a></div>-->
+            <!--                        <span>Name</span>-->
+            <!--                    </div>-->
+            <!--                    <div class="col-md-4 col-lg-3">-->
+            <!--                        <div class="item"><a href="#"><img class="img-fluid scale-on-hover"-->
+            <!--                                                           src="assets/img/nature/image5.jpg"></a></div>-->
+            <!--                        <span>Name</span>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+        </div>
+    </section>
+</main>
+
+
+
+<div th:insert="blocks/scripts :: scripts"></div>
+
+</body>
+
+</html>

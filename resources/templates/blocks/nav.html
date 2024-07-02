@@ -1,0 +1,38 @@
+<nav th:fragment="nav" class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
+    <div class="container bg-dark rounded-5">
+        <a class="navbar-brand logo" href="/">VeloStore</a>
+        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav">
+            <span class="visually-hidden">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li th:if="${role == 'ADMIN'}" class="nav-item">
+                    <a class="nav-link" href="/users">Пользователи</a>
+                </li>
+                <li th:if="${role == 'ADMIN'}" class="nav-item">
+                    <a class="nav-link" href="/product/add">Добавить</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/">Товары</a></li>
+                <li th:if="${role == 'ADMIN'}" class="nav-item">
+                    <a class="nav-link" href="/stat">Статистика</a>
+                </li>
+                <li th:if="${role == 'ADMIN'}" class="nav-item">
+                    <a class="nav-link" href="/ordering">Заказы</a>
+                </li>
+                <li th:if="${role == 'BUYER'}" class="nav-item">
+                    <a class="nav-link" href="/cart">Корзина</a>
+                </li>
+                <li th:if="${role == 'NOT'}" class="nav-item">
+                    <a class="nav-link" href="/login">Вход</a>
+                </li>
+                <li th:if="${role == 'NOT'}" class="nav-item">
+                    <a class="nav-link" href="/reg">Регистрация</a>
+                </li>
+                <li th:if="${role != 'NOT'}" class="nav-item">
+                    <a class="nav-link" href="/logout">Выйти</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

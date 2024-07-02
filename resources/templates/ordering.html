@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Заказы</title>
+</head>
+
+<head th:insert="blocks/head :: head"></head>
+
+
+<body style="background: url(&quot;/img/bg.jpg&quot;) top / cover;">
+<div th:insert="blocks/nav :: nav"></div>
+
+<main class="page projects-page mt-3">
+    <section class="portfolio-block projects-cards">
+        <div class="container bg-light rounded-5 shadow p-3">
+            <div class="heading">
+                <h2>Заказы</h2>
+            </div>
+            <form action="/ordering" method="post" style="max-width: 100%;margin-bottom: 20px;">
+                <div class="row">
+                    <div class="col">
+                        <select class="form-select" name="idBuyer">
+                            <option th:each="buyer : ${buyers}" th:value="${buyer.getId()}" th:label="${buyer.username}"
+                                    th:selected="${buyer.id == selectedBuyer}"></option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary" type="submit" style="width: 100%;">Найти</button>
+                    </div>
+                </div>
+            </form>
+            <div th:each="ordering : ${orderings}" class="row" style="margin-bottom: 30px;">
+                <div class="col-md-6 col-lg-2">
+                    <a th:href="'/product/' + ${ordering.product.id}">
+                        <img class="card-img-top scale-on-hover" th:src="'/img/' + ${ordering.product.file}"
+                             alt="Card Image" style="border-radius: 10px;">
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg">
+                    <h6><a th:text="${ordering.product.name}" th:href="'/product/' + ${ordering.product.id}">Название</a></h6>
+                    <span>Категория:&nbsp;</span><a th:text="${ordering.product.category.name}"
+                                                    th:href="'/search/' + ${ordering.product.category.name}">Категория</a>
+                    <br>
+                    <span>Цена:&nbsp;</span><span th:text="${ordering.sum}">Цена</span>
+                    <br>
+                    <span>Статус:&nbsp;</span><span th:text="${ordering.orderingStatus.name}">Статус</span>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col">
+                            <a th:if="${ordering.orderingStatus.name() == 'NOT_CONFIRMED'}"
+                               th:href="'/ordering/confirmed/' + ${ordering.id}" class="btn btn-primary" role="button"
+                               style="width: 100%;">Подтвердить</a>
+                        </div>
+                        <div class="col">
+                            <a th:if="${ordering.orderingStatus.name() == 'CONFIRMED'}"
+                               th:href="'/ordering/shipped/' + ${ordering.id}" class="btn btn-warning" role="button"
+                               style="width: 100%;">Отправить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <a th:href="'/ordering/confirmed/all/' + ${selectedBuyer}" class="btn btn-primary" role="button"
+                       style="width: 100%;">Подтвердить все (Только не подтвержденные)</a>
+                </div>
+                <div class="col">
+                    <a th:href="'/ordering/shipped/all/' + ${selectedBuyer}" class="btn btn-warning" role="button"
+                       style="width: 100%;">Отправить все (Только подтвержденные)</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+
+<div th:insert="blocks/scripts :: scripts"></div>
+
+</body>
+
+</html>
